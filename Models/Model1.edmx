@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BaluModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Malha">
+          <Key>
+            <PropertyRef Name="ID_Ref" />
+          </Key>
+          <Property Name="ID_Ref" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ref_Malha" Type="nvarchar" MaxLength="60" />
+          <Property Name="Data_Registo" Type="date" />
+          <Property Name="Data_Arquivo" Type="date" />
+          <Property Name="Ref_Malheiro" Type="nvarchar(max)" />
+          <Property Name="Nome_Malha" Type="nvarchar(max)" />
+          <Property Name="Largura" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Gramagem_Inicio" Type="int" />
+          <Property Name="Gramagem_Fim" Type="int" />
+          <Property Name="Gramagem_m2" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Gramagem_mlinear" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="ID_Unidade" Type="int" />
+          <Property Name="Valor_Unidade" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Pasta" Type="int" />
+          <Property Name="Cartaz" Type="int" />
+          <Property Name="Percentagem" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ID_Tingimento" Type="int" />
+          <Property Name="Preco_Malha_Cru" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Percas" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Preco_Final" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Obs" Type="nvarchar(max)" />
+          <Property Name="Obs_temp" Type="nvarchar(max)" />
+          <Property Name="ID_Fornecedor" Type="int" />
+          <Property Name="Obs_temp2" Type="nvarchar(max)" />
+          <Property Name="Malha_Composicao" Type="nvarchar(max)" />
+          <Property Name="Excluir" Type="bit" />
+        </EntityType>
+        <EntityType Name="Preco_Malha">
+          <Key>
+            <PropertyRef Name="Ref_Balu" />
+            <PropertyRef Name="ID_PrecoPOS" />
+            <PropertyRef Name="ID_Preco_Malha" />
+          </Key>
+          <Property Name="Ref_Balu" Type="int" Nullable="false" />
+          <Property Name="ID_PrecoPOS" Type="int" Nullable="false" />
+          <Property Name="ID_Preco_Malha" Type="int" Nullable="false" />
+          <Property Name="ID_Ref" Type="int" />
+          <Property Name="Quantidade" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="Preco_Simulado" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="ID_Peso_Malha" Type="int" />
+          <Property Name="Peso_malha" Type="int" />
+          <Property Name="Comprimento" Type="int" />
+          <Property Name="Num_Pecas" Type="int" />
+          <Property Name="Valor_Peso_Peca" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Programa">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+          </Key>
+          <Property Name="ID_Programa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Registo" Type="date" />
+          <Property Name="Num_Encomenda" Type="nvarchar(max)" />
+          <Property Name="Ref_Cliente" Type="nvarchar(max)" />
+          <Property Name="Colecao" Type="nvarchar(max)" />
+          <Property Name="Ref_Balu" Type="int" />
+          <Property Name="Semana_Embarque" Type="date" />
+          <Property Name="Modelo" Type="nvarchar(max)" />
+          <Property Name="Embarque" Type="bit" />
+          <Property Name="Data_Faturacao" Type="date" />
+          <Property Name="Valor_Faturacao" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Nummer" Type="nvarchar(max)" />
+          <Property Name="PM" Type="nvarchar(max)" />
+          <Property Name="Comissao" Type="bit" />
+          <Property Name="Data_Comissao" Type="date" />
+          <Property Name="Obs" Type="nvarchar(max)" />
+          <Property Name="Data_Aprovacao" Type="date" />
+          <Property Name="Preco_Peca" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Num_Semana" Type="int" />
+          <Property Name="Num_Pecas" Type="int" />
+          <Property Name="Pronto_Embarcar" Type="bit" />
+          <Property Name="Excluir" Type="bit" />
+          <Property Name="Cod_Artigo" Type="nvarchar(max)" />
+          <Property Name="ImprimirLista" Type="int" />
+        </EntityType>
+        <EntityType Name="Programa_Cor">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+            <PropertyRef Name="ID_Programa_Malha" />
+            <PropertyRef Name="ID_Linha_Cor" />
+          </Key>
+          <Property Name="ID_Programa" Type="int" Nullable="false" />
+          <Property Name="ID_Programa_Malha" Type="int" Nullable="false" />
+          <Property Name="ID_Linha_Cor" Type="int" Nullable="false" />
+          <Property Name="Cor" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Programa_Cor_Info">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+            <PropertyRef Name="ID_Linha_Cor" />
+          </Key>
+          <Property Name="ID_Programa" Type="int" Nullable="false" />
+          <Property Name="ID_Linha_Cor" Type="int" Nullable="false" />
+          <Property Name="ID_Programa_Malha" Type="int" Nullable="false" />
+          <Property Name="Cliente" Type="int" />
+          <Property Name="Fatura" Type="int" />
+          <Property Name="Faturado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Programa_Cor_Info_Status">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+            <PropertyRef Name="ID_Linha_Cor" />
+            <PropertyRef Name="ID_Programa_Malha" />
+          </Key>
+          <Property Name="ID_Programa" Type="int" Nullable="false" />
+          <Property Name="ID_Linha_Cor" Type="int" Nullable="false" />
+          <Property Name="ID_Programa_Malha" Type="int" Nullable="false" />
+          <Property Name="Talao" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Obs" Type="nvarchar(max)" />
+          <Property Name="Data_mod" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Programa_Malha">
+          <Key>
+            <PropertyRef Name="ID_Programa_Malha" />
+            <PropertyRef Name="ID_Programa" />
+          </Key>
+          <Property Name="ID_Programa_Malha" Type="int" Nullable="false" />
+          <Property Name="ID_Programa" Type="int" Nullable="false" />
+          <Property Name="Num_Enc_Malha" Type="nvarchar(max)" />
+          <Property Name="Peso" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Obs" Type="nvarchar(max)" />
+          <Property Name="Obs_Malha" Type="nvarchar(max)" />
+          <Property Name="id_ref" Type="nvarchar(max)" />
+          <Property Name="ID_Encomenda" Type="int" />
+        </EntityType>
+        <EntityContainer Name="BaluModelStoreContainer">
+          <EntitySet Name="Malha" EntityType="Self.Malha" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preco_Malha" EntityType="Self.Preco_Malha" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programa" EntityType="Self.Programa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programa_Cor" EntityType="Self.Programa_Cor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programa_Cor_Info" EntityType="Self.Programa_Cor_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programa_Cor_Info_Status" EntityType="Self.Programa_Cor_Info_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programa_Malha" EntityType="Self.Programa_Malha" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BaluModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Malha">
+          <Key>
+            <PropertyRef Name="ID_Ref" />
+          </Key>
+          <Property Name="ID_Ref" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ref_Malha" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Data_Registo" Type="DateTime" Precision="0" />
+          <Property Name="Data_Arquivo" Type="DateTime" Precision="0" />
+          <Property Name="Ref_Malheiro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nome_Malha" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Largura" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Gramagem_Inicio" Type="Int32" />
+          <Property Name="Gramagem_Fim" Type="Int32" />
+          <Property Name="Gramagem_m2" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Gramagem_mlinear" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="ID_Unidade" Type="Int32" />
+          <Property Name="Valor_Unidade" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Pasta" Type="Int32" />
+          <Property Name="Cartaz" Type="Int32" />
+          <Property Name="Percentagem" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ID_Tingimento" Type="Int32" />
+          <Property Name="Preco_Malha_Cru" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Percas" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Preco_Final" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Obs_temp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Fornecedor" Type="Int32" />
+          <Property Name="Obs_temp2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Malha_Composicao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Excluir" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Preco_Malha">
+          <Key>
+            <PropertyRef Name="Ref_Balu" />
+            <PropertyRef Name="ID_PrecoPOS" />
+            <PropertyRef Name="ID_Preco_Malha" />
+          </Key>
+          <Property Name="Ref_Balu" Type="Int32" Nullable="false" />
+          <Property Name="ID_PrecoPOS" Type="Int32" Nullable="false" />
+          <Property Name="ID_Preco_Malha" Type="Int32" Nullable="false" />
+          <Property Name="ID_Ref" Type="Int32" />
+          <Property Name="Quantidade" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="Preco_Simulado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="ID_Peso_Malha" Type="Int32" />
+          <Property Name="Peso_malha" Type="Int32" />
+          <Property Name="Comprimento" Type="Int32" />
+          <Property Name="Num_Pecas" Type="Int32" />
+          <Property Name="Valor_Peso_Peca" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Programa">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+          </Key>
+          <Property Name="ID_Programa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Registo" Type="DateTime" Precision="0" />
+          <Property Name="Num_Encomenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ref_Cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Colecao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ref_Balu" Type="Int32" />
+          <Property Name="Semana_Embarque" Type="DateTime" Precision="0" />
+          <Property Name="Modelo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Embarque" Type="Boolean" />
+          <Property Name="Data_Faturacao" Type="DateTime" Precision="0" />
+          <Property Name="Valor_Faturacao" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Nummer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comissao" Type="Boolean" />
+          <Property Name="Data_Comissao" Type="DateTime" Precision="0" />
+          <Property Name="Obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Data_Aprovacao" Type="DateTime" Precision="0" />
+          <Property Name="Preco_Peca" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Num_Semana" Type="Int32" />
+          <Property Name="Num_Pecas" Type="Int32" />
+          <Property Name="Pronto_Embarcar" Type="Boolean" />
+          <Property Name="Excluir" Type="Boolean" />
+          <Property Name="Cod_Artigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImprimirLista" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Programa_Cor">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+            <PropertyRef Name="ID_Programa_Malha" />
+            <PropertyRef Name="ID_Linha_Cor" />
+          </Key>
+          <Property Name="ID_Programa" Type="Int32" Nullable="false" />
+          <Property Name="ID_Programa_Malha" Type="Int32" Nullable="false" />
+          <Property Name="ID_Linha_Cor" Type="Int32" Nullable="false" />
+          <Property Name="Cor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Programa_Cor_Info">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+            <PropertyRef Name="ID_Linha_Cor" />
+          </Key>
+          <Property Name="ID_Programa" Type="Int32" Nullable="false" />
+          <Property Name="ID_Linha_Cor" Type="Int32" Nullable="false" />
+          <Property Name="ID_Programa_Malha" Type="Int32" Nullable="false" />
+          <Property Name="Cliente" Type="Int32" />
+          <Property Name="Fatura" Type="Int32" />
+          <Property Name="Faturado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Programa_Cor_Info_Status">
+          <Key>
+            <PropertyRef Name="ID_Programa" />
+            <PropertyRef Name="ID_Linha_Cor" />
+            <PropertyRef Name="ID_Programa_Malha" />
+          </Key>
+          <Property Name="ID_Programa" Type="Int32" Nullable="false" />
+          <Property Name="ID_Linha_Cor" Type="Int32" Nullable="false" />
+          <Property Name="ID_Programa_Malha" Type="Int32" Nullable="false" />
+          <Property Name="Talao" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Data_mod" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Programa_Malha">
+          <Key>
+            <PropertyRef Name="ID_Programa_Malha" />
+            <PropertyRef Name="ID_Programa" />
+          </Key>
+          <Property Name="ID_Programa_Malha" Type="Int32" Nullable="false" />
+          <Property Name="ID_Programa" Type="Int32" Nullable="false" />
+          <Property Name="Num_Enc_Malha" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Peso" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Obs_Malha" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id_ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Encomenda" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="BaluEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Malha" EntityType="Self.Malha" />
+          <EntitySet Name="Preco_Malha" EntityType="Self.Preco_Malha" />
+          <EntitySet Name="Programa" EntityType="Self.Programa" />
+          <EntitySet Name="Programa_Cor" EntityType="Self.Programa_Cor" />
+          <EntitySet Name="Programa_Cor_Info" EntityType="Self.Programa_Cor_Info" />
+          <EntitySet Name="Programa_Cor_Info_Status" EntityType="Self.Programa_Cor_Info_Status" />
+          <EntitySet Name="Programa_Malha" EntityType="Self.Programa_Malha" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BaluModelStoreContainer" CdmEntityContainer="BaluEntities">
+          <EntitySetMapping Name="Malha">
+            <EntityTypeMapping TypeName="BaluModel.Malha">
+              <MappingFragment StoreEntitySet="Malha">
+                <ScalarProperty Name="ID_Ref" ColumnName="ID_Ref" />
+                <ScalarProperty Name="Ref_Malha" ColumnName="Ref_Malha" />
+                <ScalarProperty Name="Data_Registo" ColumnName="Data_Registo" />
+                <ScalarProperty Name="Data_Arquivo" ColumnName="Data_Arquivo" />
+                <ScalarProperty Name="Ref_Malheiro" ColumnName="Ref_Malheiro" />
+                <ScalarProperty Name="Nome_Malha" ColumnName="Nome_Malha" />
+                <ScalarProperty Name="Largura" ColumnName="Largura" />
+                <ScalarProperty Name="Gramagem_Inicio" ColumnName="Gramagem_Inicio" />
+                <ScalarProperty Name="Gramagem_Fim" ColumnName="Gramagem_Fim" />
+                <ScalarProperty Name="Gramagem_m2" ColumnName="Gramagem_m2" />
+                <ScalarProperty Name="Gramagem_mlinear" ColumnName="Gramagem_mlinear" />
+                <ScalarProperty Name="ID_Unidade" ColumnName="ID_Unidade" />
+                <ScalarProperty Name="Valor_Unidade" ColumnName="Valor_Unidade" />
+                <ScalarProperty Name="Pasta" ColumnName="Pasta" />
+                <ScalarProperty Name="Cartaz" ColumnName="Cartaz" />
+                <ScalarProperty Name="Percentagem" ColumnName="Percentagem" />
+                <ScalarProperty Name="ID_Tingimento" ColumnName="ID_Tingimento" />
+                <ScalarProperty Name="Preco_Malha_Cru" ColumnName="Preco_Malha_Cru" />
+                <ScalarProperty Name="Percas" ColumnName="Percas" />
+                <ScalarProperty Name="Preco_Final" ColumnName="Preco_Final" />
+                <ScalarProperty Name="Obs" ColumnName="Obs" />
+                <ScalarProperty Name="Obs_temp" ColumnName="Obs_temp" />
+                <ScalarProperty Name="ID_Fornecedor" ColumnName="ID_Fornecedor" />
+                <ScalarProperty Name="Obs_temp2" ColumnName="Obs_temp2" />
+                <ScalarProperty Name="Malha_Composicao" ColumnName="Malha_Composicao" />
+                <ScalarProperty Name="Excluir" ColumnName="Excluir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preco_Malha">
+            <EntityTypeMapping TypeName="BaluModel.Preco_Malha">
+              <MappingFragment StoreEntitySet="Preco_Malha">
+                <ScalarProperty Name="Ref_Balu" ColumnName="Ref_Balu" />
+                <ScalarProperty Name="ID_PrecoPOS" ColumnName="ID_PrecoPOS" />
+                <ScalarProperty Name="ID_Preco_Malha" ColumnName="ID_Preco_Malha" />
+                <ScalarProperty Name="ID_Ref" ColumnName="ID_Ref" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Preco_Simulado" ColumnName="Preco_Simulado" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="ID_Peso_Malha" ColumnName="ID_Peso_Malha" />
+                <ScalarProperty Name="Peso_malha" ColumnName="Peso_malha" />
+                <ScalarProperty Name="Comprimento" ColumnName="Comprimento" />
+                <ScalarProperty Name="Num_Pecas" ColumnName="Num_Pecas" />
+                <ScalarProperty Name="Valor_Peso_Peca" ColumnName="Valor_Peso_Peca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programa">
+            <EntityTypeMapping TypeName="BaluModel.Programa">
+              <MappingFragment StoreEntitySet="Programa">
+                <ScalarProperty Name="ID_Programa" ColumnName="ID_Programa" />
+                <ScalarProperty Name="Data_Registo" ColumnName="Data_Registo" />
+                <ScalarProperty Name="Num_Encomenda" ColumnName="Num_Encomenda" />
+                <ScalarProperty Name="Ref_Cliente" ColumnName="Ref_Cliente" />
+                <ScalarProperty Name="Colecao" ColumnName="Colecao" />
+                <ScalarProperty Name="Ref_Balu" ColumnName="Ref_Balu" />
+                <ScalarProperty Name="Semana_Embarque" ColumnName="Semana_Embarque" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Embarque" ColumnName="Embarque" />
+                <ScalarProperty Name="Data_Faturacao" ColumnName="Data_Faturacao" />
+                <ScalarProperty Name="Valor_Faturacao" ColumnName="Valor_Faturacao" />
+                <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+                <ScalarProperty Name="PM" ColumnName="PM" />
+                <ScalarProperty Name="Comissao" ColumnName="Comissao" />
+                <ScalarProperty Name="Data_Comissao" ColumnName="Data_Comissao" />
+                <ScalarProperty Name="Obs" ColumnName="Obs" />
+                <ScalarProperty Name="Data_Aprovacao" ColumnName="Data_Aprovacao" />
+                <ScalarProperty Name="Preco_Peca" ColumnName="Preco_Peca" />
+                <ScalarProperty Name="Num_Semana" ColumnName="Num_Semana" />
+                <ScalarProperty Name="Num_Pecas" ColumnName="Num_Pecas" />
+                <ScalarProperty Name="Pronto_Embarcar" ColumnName="Pronto_Embarcar" />
+                <ScalarProperty Name="Excluir" ColumnName="Excluir" />
+                <ScalarProperty Name="Cod_Artigo" ColumnName="Cod_Artigo" />
+                <ScalarProperty Name="ImprimirLista" ColumnName="ImprimirLista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programa_Cor">
+            <EntityTypeMapping TypeName="BaluModel.Programa_Cor">
+              <MappingFragment StoreEntitySet="Programa_Cor">
+                <ScalarProperty Name="ID_Programa" ColumnName="ID_Programa" />
+                <ScalarProperty Name="ID_Programa_Malha" ColumnName="ID_Programa_Malha" />
+                <ScalarProperty Name="ID_Linha_Cor" ColumnName="ID_Linha_Cor" />
+                <ScalarProperty Name="Cor" ColumnName="Cor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programa_Cor_Info">
+            <EntityTypeMapping TypeName="BaluModel.Programa_Cor_Info">
+              <MappingFragment StoreEntitySet="Programa_Cor_Info">
+                <ScalarProperty Name="ID_Programa" ColumnName="ID_Programa" />
+                <ScalarProperty Name="ID_Linha_Cor" ColumnName="ID_Linha_Cor" />
+                <ScalarProperty Name="ID_Programa_Malha" ColumnName="ID_Programa_Malha" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Fatura" ColumnName="Fatura" />
+                <ScalarProperty Name="Faturado" ColumnName="Faturado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programa_Cor_Info_Status">
+            <EntityTypeMapping TypeName="BaluModel.Programa_Cor_Info_Status">
+              <MappingFragment StoreEntitySet="Programa_Cor_Info_Status">
+                <ScalarProperty Name="ID_Programa" ColumnName="ID_Programa" />
+                <ScalarProperty Name="ID_Linha_Cor" ColumnName="ID_Linha_Cor" />
+                <ScalarProperty Name="ID_Programa_Malha" ColumnName="ID_Programa_Malha" />
+                <ScalarProperty Name="Talao" ColumnName="Talao" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Obs" ColumnName="Obs" />
+                <ScalarProperty Name="Data_mod" ColumnName="Data_mod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programa_Malha">
+            <EntityTypeMapping TypeName="BaluModel.Programa_Malha">
+              <MappingFragment StoreEntitySet="Programa_Malha">
+                <ScalarProperty Name="ID_Programa_Malha" ColumnName="ID_Programa_Malha" />
+                <ScalarProperty Name="ID_Programa" ColumnName="ID_Programa" />
+                <ScalarProperty Name="Num_Enc_Malha" ColumnName="Num_Enc_Malha" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Obs" ColumnName="Obs" />
+                <ScalarProperty Name="Obs_Malha" ColumnName="Obs_Malha" />
+                <ScalarProperty Name="id_ref" ColumnName="id_ref" />
+                <ScalarProperty Name="ID_Encomenda" ColumnName="ID_Encomenda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

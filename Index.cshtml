@@ -1,0 +1,394 @@
+﻿@model IEnumerable<Balu0._1.Models.OrdersColorsViewModel>
+<p></p>
+<div class="innfo" id="embfilt" style="margin-bottom:10px">
+
+    <div class="float-left" style="margin-left:20px">
+        <h2>Encomendas</h2>
+    </div>
+    <div class="float-right" style="margin-left:20px">
+        <div class="CellWithComment">
+            <b>@ViewBag.totaStatVB</b> Nº Peças <span class="CellComment">
+
+                Sem Status :<b>@ViewBag.statVazioVB</b>
+                <br />
+                Sem malha :<b>@ViewBag.smalhaVB</b>
+                <br />
+                No gabinete (dos moldes): <b>@ViewBag.nogabVB</b>
+                <br />
+                A testar corte: <b>@ViewBag.testcortVB</b>
+                <br />
+                A bordar: <b>@ViewBag.abordarVB</b>
+                <br />
+                Para cortar: <b>@ViewBag.pcortarVB</b>
+                <br />
+                Em corte: <b>@ViewBag.emcorteVB</b>
+                <br />
+                A estampar: <b>@ViewBag.aestampVB</b>
+                <br />
+                Para colocar: <b>@ViewBag.parcolocarVB</b>
+                <br />
+                Em confeção: <b>@ViewBag.emconfecVB</b>
+                <br />
+                Para aparar: <b>@ViewBag.paraApararVB</b>
+                <br />
+                Para lavar: <b>@ViewBag.paraLavarVB</b>
+                <br />
+                Para tingir: <b>@ViewBag.paratingirVB</b>
+                <br />
+                Para ferros: <b>@ViewBag.paraferrosVB</b>
+                <br />
+                Para arranjos: <b>@ViewBag.paraArranjosVB</b>
+                <br />
+                Para embalagem: <b>@ViewBag.paraEmbalaVB</b>
+                <br />
+                Embalado: <b>@ViewBag.embaladVB</b>
+                <br />
+                Para controle: <b>@ViewBag.paraControlVB</b>
+                <br />
+                Aguarda aprovação cliente: <b>@ViewBag.aguardAprovVB</b>
+            </span> &nbsp &nbsp &nbsp
+            <b>@Model.Count()</b> de <b>@ViewBag.countt</b> Enc. no Total &nbsp &nbsp
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="filtros" id="embfilt" style="margin-bottom:50px">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <div class="float-left" style="margin-left:20px">
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control mr-sm-2", @placeholder = "Procurar", style = "width: 300px;" })
+            <!--<span class="CellComment">tttt <br />aaa </span> class CellWithComment-->
+        </div>
+        <div class="float-right">
+            &nbsp Status: @Html.DropDownList("startStatus", "Todos") &nbsp &nbsp
+
+            &nbsp Data de Embarque: @Html.DropDownList("startData", "Todas") &nbsp &nbsp
+        </div>
+    }
+</div>
+<p></p>
+<table class="table table-responsive table-borderless table-sm  " id="ordertable">
+    @foreach (var item in Model)
+    {
+        <tr style="border-top: 2px solid #cdd0d4;">
+            <td rowspan="3">
+                <img class="rounded border border-success" src=@String.Format("Img/{0}.jpg",@item.order.Ref_Balu) , width="180" height="180" />
+                @using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+                                new { enctype = "multipart/form-data" }))
+                {
+                    <!--<label for="file">Apenas Imagens .jpg:</label>-->
+                    <input class="inputImage" type="file" name="file" id="file" style="width: 100%; font-size:8px;" />
+                }
+            </td>
+            @if (@item.order.Num_Encomenda.Contains("00/"))
+            {
+                <td style="width: 300px; ">
+                    <p style="font-size:20px;">Enc.GOTS:<span style="font-size:25px;"><b>@item.order.Num_Encomenda</b></span></p>
+                </td>
+            }
+            else
+            {
+                <td style="width: 300px; ">
+                    <p style="font-size:20px;">NºEnc: <span style="font-size:25px;"><b>@item.order.Num_Encomenda</b></span></p>
+                </td>
+            }
+            @if (item.order.Semana_Embarque < item.order.ReturnDatePro)
+            {
+                <td>
+                    <p class="alert alert-danger" style="font-size:15px;">Embarque: <span style="font-size:20px;"><b>@Convert.ToDateTime(item.order.Semana_Embarque).ToString("dd/MM/yyyy")</b></span></p>
+                </td>
+            }
+            else if (item.order.Semana_Embarque > item.order.ReturnDateProDez)
+            {
+                <td>
+                    <p style="font-size:15px;">Embarque: <span style="font-size:20px;"><b>@Convert.ToDateTime(item.order.Semana_Embarque).ToString("dd/MM/yyyy")</b></span></p>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <p class="alert alert-warning" style="font-size:15px;">Embarque: <span style="font-size:20px;"><b>@Convert.ToDateTime(item.order.Semana_Embarque).ToString("dd/MM/yyyy")</b></span></p>
+                </td>
+            }
+            <td style="width: 300px;">
+                Cliente: <b>@item.order.Colecao</b>
+
+            </td>
+            <td style="width: 300px;">
+                Ref.Cliente: <b>@item.order.Ref_Cliente</b>
+            </td>
+            @if (@item.order.Num_Encomenda.Contains("00/"))
+            {
+                <td rowspan="2">
+                    <img class="rounded" src=https://www.balutextil.com/wp-content/uploads/2019/11/gots-logo_web_2018.png , width="150" height="150" /> &nbsp &nbsp &nbsp &nbsp
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+        </tr>
+        <tr>
+            <td style="width: 300px;">
+                <p style="font-size:15px;">Artigo: <span style="font-size:22px;"><b>@item.order.Ref_Balu</b></span></p>
+            </td>
+            <td style="width: 500px;">
+                Modelo: <b>@item.order.Modelo</b>
+            </td>
+            <td style="width: 200px;">
+                Ref: <b>@item.malha.Ref_Malha</b>
+            </td>
+            <td style="width: 600px;">
+                Malha: <b>@item.malha.Nome_Malha</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <table class="table table-bordered ordertable">
+                    <tr>
+                        <th style="width: 100px;">
+                            Cor
+                        </th>
+                        <th style="width: 80px;">
+                            NºPecas
+                        </th>
+                        <th style="width: 80px;">
+                            NºEnc
+                        </th>
+                        <th style="width: 80px;">
+                            Talão
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Observações
+                        </th>
+                        <th>
+                            <!--Head Botão Editar/Guardar-->
+                        </th>
+                    </tr>
+                    @item.colers.Sum(i => i.quant[0].Cliente)
+
+                    @foreach (var item2 in item.colers)
+                    {
+                        <tr>
+                            @if (item2.quant.Count != 0)
+                            {
+                                <td style="width: 100px;">
+                                    @item2.coler.Cor
+                                </td>
+                                <td style="width: 80px;">
+                                    @foreach (var item3 in item2.quant)
+                                    {
+                                        @item3.Cliente
+                                    }
+                                </td>
+                                <td style="width: 80px;">
+                                    @foreach (var item3 in item.promalha)
+                                    {
+                                        @item3.Num_Enc_Malha
+                                    }
+                                </td>
+                            }
+                            @if (item2.status.Count != 0)
+                            {
+                                <td style="width: 80px;">
+                                    @foreach (var item4 in item2.status)
+                                    {
+                                        @Html.HiddenFor(m => @item4.ID_Programa, new { @class = "ID_Programa" })
+                                        @Html.HiddenFor(m => @item4.ID_Linha_Cor, new { @class = "ID_Linha_Cor" })
+                                        @Html.HiddenFor(m => @item4.ID_Programa_Malha, new { @class = "ID_Programa_Malha" })
+                                        @Html.HiddenFor(m => @item4.ReturnDate, new { @class = "Data_mod" })
+
+                                        <!--Talão-->
+                                        @Html.TextBoxFor(m => @item4.Talao, new { @class = "Talao form-control form-control-sm font-weight-bold", disabled = true, style = "width: 80px;" })
+                                    }
+                                </td>
+                                <td id="Status">
+                                    @foreach (var item4 in item2.status)
+                                    {
+                                        <!--Html.TextBoxFor(m => item4.Status, new { class = "Status", disabled = true })-->
+                                        @Html.DropDownListFor(m => @item4.Status, new List<SelectListItem>
+                                                 {
+                                               new SelectListItem { Text = @item4.Status, Value = @item4.Status, Selected = true},
+                                               new SelectListItem { Text = "Sem malha", Value = "Sem malha"},
+                                               new SelectListItem { Text = "No gabinete (dos moldes)", Value = "No gabinete (dos moldes)"},
+                                               new SelectListItem { Text = "A testar corte", Value = "A testar corte"},
+                                               new SelectListItem { Text = "A bordar", Value = "A bordar"},
+                                               new SelectListItem { Text = "Para cortar", Value = "Para cortar"},
+                                               new SelectListItem { Text = "Em corte", Value = "Em corte"},
+                                               new SelectListItem { Text = "A estampar", Value = "A estampar"},
+                                               new SelectListItem { Text = "Para colocar", Value = "Para colocar"},
+                                               new SelectListItem { Text = "Em confeção", Value = "Em confeção"},
+                                               new SelectListItem { Text = "Para aparar", Value = "Para aparar"},
+                                               new SelectListItem { Text = "Para lavar", Value = "Para lavar"},
+                                               new SelectListItem { Text = "Para tingir", Value = "Para tingir"},
+                                               new SelectListItem { Text = "Para ferros", Value = "Para ferros"},
+                                               new SelectListItem { Text = "Para arranjos", Value = "Para arranjos"},
+                                               new SelectListItem { Text = "Para embalagem", Value = "Para embalagem"},
+                                               new SelectListItem { Text = "Embalado", Value = "Embalado"},
+                                               new SelectListItem { Text = "Para controle", Value = "Para controle"},
+                                               new SelectListItem { Text = "Aguarda aprovação cliente", Value = "Aguarda aprovação cliente"},
+                                                   }, new { style = "width: 180px;", @class = "Status form-control form-control-sm font-weight-bold", disabled = true })
+
+
+                                        <!--new SelectListItem { Text = String.Format("{0}", item4.Status), Value = String.Format("teste{0}", item4.Status), Selected = true },-->
+
+                                        <!--Html.DropDownListFor(m => item4.Status, new SelectList(item4.ServicesList, "id_serv", "servicos", 2),
+                                        "--Select--", new { class = "SelectList" })-->
+
+                                        //@Html.DropDownListFor(m => @item4.Status, @ViewBag.startData as SelectList, new { @class = "form-control" })
+                                    }
+                                </td>
+                                <td id="Obs">
+                                    @foreach (var item4 in item2.status)
+                                    {
+                                        @Html.TextAreaFor(m => @item4.Obs, new { @class = "Obs form-control form-control-sm font-weight-bold", disabled = true, style = "width: 400px;", rows = "1" })
+                                    }
+                                </td>
+                                <td style="text-align:right;">
+                                    <button class="btn ToEditbtn btn btn-outline-success btn-sm"><span aria-hidden="true"></span>Editar</button>
+                                    <button class="btn Editbtn btn btn-outline-success btn-sm" style="display:none"><span aria-hidden="true">Guardar</span></button>
+                                    <p style="font-size:10px;">
+                                        @foreach (var item4 in item2.status)
+                                        {
+                                            @item4.Data_mod
+                                        }
+                                    </p>
+                                </td>
+                            }
+                            else
+                            {
+                                <td colspan="4" style="text-align:right;">
+                                    @foreach (var item3 in item2.quant)
+                                    {
+                                        @Html.HiddenFor(m => @item3.ID_Programa, new { @class = "ID_Programaf" })
+                                        @Html.HiddenFor(m => @item3.ID_Linha_Cor, new { @class = "ID_Linha_Corf" })
+                                        @Html.HiddenFor(m => @item3.ID_Programa_Malha, new { @class = "ID_Programa_Malhaf" })
+                                        <button class="btn inserir btn btn-outline-success btn-sm"><span aria-hidden="true"></span>Inserir</button>
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    }
+</table>
+
+@section scripts{
+    <script>
+
+        jQuery(function () {
+            jQuery('.inserir').click();
+        });
+
+        // Seleção do valor na dropdownlist
+        jQuery(function ($) {
+            $('#startData').on('change', function () {
+                this.form.submit();
+            });
+            $('#startStatus').on('change', function () {
+                this.form.submit();
+            });
+        });
+
+        //Upload Imagem
+        jQuery(function ($) {
+            $('.inputImage').on('change', function () {
+                this.form.submit();
+            });
+        });
+
+        //-----------Ediç-------------------------------------------------------------------
+        $(function tClick() {
+            //Abilita os campos para edição
+            $("#ordertable").on("click", ".ToEditbtn", function () {
+                $(this).hide();
+                var currenttr = $(this).closest("tr");
+                currenttr.find(".Editbtn").show();
+                currenttr.find(".Talao").prop("disabled", false);
+                currenttr.find(".Status").prop("disabled", false);
+                currenttr.find(".Obs").prop("disabled", false);
+            });
+            //Atualiza os campos na base dados
+            $("#ordertable").on("click", ".Editbtn", function () {
+                var status = new Object();
+                status.ID_Programa = $(this).closest('tr').find(".ID_Programa").val();
+                status.ID_Linha_Cor = $(this).closest('tr').find(".ID_Linha_Cor").val();
+                status.ID_Programa_Malha = $(this).closest('tr').find(".ID_Programa_Malha").val();
+                status.Talao = $(this).closest('tr').find(".Talao").val();
+                status.Status = $(this).closest('tr').find(".Status").val();
+                status.Obs = $(this).closest('tr').find(".Obs").val();
+                status.Data_mod = $(this).closest('tr').find(".Data_mod").val();
+                if (status != null) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/EditPost",
+                        data: JSON.stringify(status),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response != null) {
+                            } else {
+                                alert("Something went wrong");
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+
+                }
+                //Desabilita os campos
+                $(this).hide();
+                var currenttr = $(this).closest("tr");
+                currenttr.find(".ToEditbtn").show();
+                currenttr.find(".Talao").prop("disabled", true);
+                currenttr.find(".Status").prop("disabled", true);
+                currenttr.find(".Obs").prop("disabled", true);
+                location.reload();
+            });
+        });
+        //------------------------------------------------------------------------------
+        // Insere os valores da tabela Programa_Cor_Info na tabela Programa_Cor_Info
+        $("#ordertable").on("click", ".inserir", function () {
+            var info = new Object();
+            info.ID_Programa = $(this).closest('tr').find(".ID_Programaf").val();
+            info.ID_Linha_Cor = $(this).closest('tr').find(".ID_Linha_Corf").val();
+            info.ID_Programa_Malha = $(this).closest('tr').find(".ID_Programa_Malhaf").val();
+
+            if (info != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/AddPost",
+                    data: JSON.stringify(info),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != null) {
+                        } else {
+                            alert("Something went wrong");
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+            //F5
+            location.reload();
+        });
+
+    </script>
+}
+
